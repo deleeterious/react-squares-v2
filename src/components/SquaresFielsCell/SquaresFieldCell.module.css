@@ -1,0 +1,8 @@
+.fieldCell {
+    margin-right: 2px;
+    background-color: #48aae6;
+}
+
+.fieldCell:last-child {
+    margin-right: 0;
+}

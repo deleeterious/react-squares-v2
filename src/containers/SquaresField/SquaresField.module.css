@@ -1,0 +1,6 @@
+.field {
+    display: inline-flex;
+    flex-direction: column;
+    border: 1px solid #48aae6;
+    padding: 2px;
+}

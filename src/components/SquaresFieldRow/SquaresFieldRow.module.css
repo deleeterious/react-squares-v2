@@ -1,0 +1,8 @@
+.fieldRow {
+    display: flex;
+    margin-bottom: 2px;
+}
+
+.fieldRow:last-child {
+    margin-bottom: 0;
+}

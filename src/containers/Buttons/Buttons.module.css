@@ -1,0 +1,38 @@
+.buttonAddRow,
+.buttonAddCol {
+    background-color: #f3a500;
+}
+
+.buttonDelRow,
+.buttonDelCol {
+    /*display: none;*/
+    background-color: #b20000;
+}
+
+.buttonAddRow:hover,
+.buttonAddCol:hover {
+    background-color: #f6c052;
+}
+
+.buttonDelRow:hover,
+.buttonDelCol:hover {
+    background-color: #ca4c49;
+}
+
+.buttonAddRow {
+    bottom: 0px;
+    left: 55px;
+}
+
+.buttonAddCol{
+    right: 0px;
+    top: 55px;
+}
+
+.buttonDelRow{
+    left: 0px;
+}
+
+.buttonDelCol {
+    top: 0px;
+}
