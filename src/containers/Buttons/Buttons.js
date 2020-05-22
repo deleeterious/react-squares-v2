@@ -1,24 +1,28 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
+// icons
+import { ReactComponent as Minus } from '../../icons/minus.svg';
+import { ReactComponent as Plus } from '../../icons/plus.svg';
+// styles
+import {
+  buttonAddRow, buttonAddCol, buttonDelRow, buttonDelCol,
+} from './Buttons.module.css';
+// components
+import SquaresButton from '../../components/SquaresButton';
+// constants
 
-//icons
-import Minus from '../../icons/Minus';
-import Plus from '../../icons/Plus';
-
-//styles
-import {buttonAddRow, buttonAddCol, buttonDelRow, buttonDelCol} from './Buttons.module.css';
-
-//components
-import SquaresButton  from '../../components/SquaresButton';
-
-//constants
 const INDENT = 5;
 
-const Buttons = ({ cellSize, onMouseOut, onMouseOver, onClick, position, visibility, squaresState}) => {
-  const {addCol,addRow,delCol,delRow} = onClick;
+const Buttons = ({
+  cellSize, onMouseOut, onMouseOver, onClick, position, visibility, squaresState,
+}) => {
+  const {
+    addCol, addRow, delCol, delRow,
+  } = onClick;
   const [delColBtnPos, delRowBtnPos] = position;
   const [delColBtnVisible, delRowBtnVisible] = visibility;
-  const [colsState,rowsState] = squaresState;
+  const [colsState, rowsState] = squaresState;
 
 
   return (
@@ -31,7 +35,6 @@ const Buttons = ({ cellSize, onMouseOut, onMouseOver, onClick, position, visibil
         className={buttonAddCol}
         position={{ top: cellSize + INDENT }}
         icon={<Plus />}
-
       />
 
       <SquaresButton
@@ -45,8 +48,9 @@ const Buttons = ({ cellSize, onMouseOut, onMouseOver, onClick, position, visibil
       />
 
       {
-        delColBtnVisible &&
-        colsState.length !== 1 &&
+        delColBtnVisible
+        && colsState.length !== 1
+        && (
         <SquaresButton
           cellSize={cellSize}
           onMouseOut={onMouseOut}
@@ -56,11 +60,13 @@ const Buttons = ({ cellSize, onMouseOut, onMouseOver, onClick, position, visibil
           position={delColBtnPos}
           icon={<Minus />}
         />
+        )
       }
 
       {
-        delRowBtnVisible &&
-        rowsState.length !== 1 &&
+        delRowBtnVisible
+        && rowsState.length !== 1
+        && (
         <SquaresButton
           cellSize={cellSize}
           onMouseOut={onMouseOut}
@@ -70,10 +76,11 @@ const Buttons = ({ cellSize, onMouseOut, onMouseOver, onClick, position, visibil
           position={delRowBtnPos}
           icon={<Minus />}
         />
+        )
       }
     </div>
-  )
-}
+  );
+};
 
 Buttons.propTypes = {
   cellSize: PropTypes.number,
@@ -83,6 +90,6 @@ Buttons.propTypes = {
   position: PropTypes.arrayOf(PropTypes.object),
   visibility: PropTypes.arrayOf(PropTypes.bool),
   squaresState: PropTypes.arrayOf(PropTypes.array),
-}
+};
 
 export default Buttons;

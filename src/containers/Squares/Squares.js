@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-//styles
+// styles
 import { squares } from './Squares.module.css';
 
-//conteiners
+// conteiners
 import SquaresField from '../SquaresField';
 import Buttons from '../Buttons';
 
-//constants
+// constants
 const DEFAULT_PADDING = 52;
 const DEFAULT_CELL_SIZE = 50;
 const DEFAULT_WIDTH = 4;
@@ -18,17 +19,14 @@ const INDENT = 2;
 let id = 0;
 
 let timeoutID = null;
-const Squares = ({initialWidth, initialHeight, cellSize}) => {
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timeoutID);
-    }
+const Squares = ({ initialWidth, initialHeight, cellSize }) => {
+  useEffect(() => () => {
+    clearTimeout(timeoutID);
   }, []);
 
   const cellSizing = cellSize || DEFAULT_CELL_SIZE;
-  const [delColBtnPos, setDelColBtnPos] = useState({left: 0});
-  const [delRowBtnPos, setDelRowBtnPos] = useState({top: 0});
+  const [delColBtnPos, setDelColBtnPos] = useState({ left: 0 });
+  const [delRowBtnPos, setDelRowBtnPos] = useState({ top: 0 });
 
   const [delColIndex, setDelColIndex] = useState(null);
   const [delRowIndex, setDelRowIndex] = useState(null);
@@ -44,13 +42,14 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
     const posCol = [...e.target.parentElement.children].indexOf(e.target);
     setDelColIndex(posCol);
     const posRow = [...e.target.parentElement.parentElement.children].indexOf(
-      e.target.parentElement);
+      e.target.parentElement,
+    );
     setDelRowIndex(posRow);
 
     const left = e.target.offsetLeft;
-    setDelColBtnPos({left: left});
+    setDelColBtnPos({ left });
     const top = e.target.offsetTop;
-    setDelRowBtnPos({top: top});
+    setDelRowBtnPos({ top });
   };
   const onMouseOut = () => {
     timeoutID = setTimeout(() => {
@@ -68,12 +67,12 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
 
     for (let i = 0; i < width; i++) {
       cols.push({
-          key: 'cols' + id,
-          cellSize: cellSizing,
-          changeMinusPosition: changeMinusPosition,
-          onMouseOut: onMouseOut,
-        });
-        id++;
+        key: `cols${id}`,
+        cellSize: cellSizing,
+        changeMinusPosition,
+        onMouseOut,
+      });
+      id++;
     }
     return cols;
   };
@@ -82,8 +81,8 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
     const height = initialHeight || DEFAULT_HEIGHT;
     for (let i = 0; i < height; i++) {
       rows.push({
-        key:'rows' + id,
-        cols: colsState
+        key: `rows${id}`,
+        cols: colsState,
       });
       id++;
     }
@@ -96,24 +95,25 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
   const addCol = () => {
     const newCols = [...colsState];
     newCols.push({
-      key: 'cols' + id++,
+      key: `cols${id++}`,
       cellSize: cellSizing,
-      changeMinusPosition: changeMinusPosition,
+      changeMinusPosition,
       isVisible: onMouseOut,
     });
     setColsState(newCols);
     const newRows = rowsState.map(
       () => ({
-        key: 'rows' + id++,
-        cols: newCols
-      }));
+        key: `rows${id++}`,
+        cols: newCols,
+      }),
+    );
     setRowsState(newRows);
   };
   const addRow = () => {
     const newRows = [...rowsState];
     newRows.push({
-      key: 'rows'+ id++,
-      cols: colsState
+      key: `rows${id++}`,
+      cols: colsState,
     });
     setRowsState(newRows);
   };
@@ -126,9 +126,10 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
 
     const newRows = rowsState.map(
       () => ({
-        key: 'cols' + id--,
-        cols: newCols
-      }));
+        key: `cols${id--}`,
+        cols: newCols,
+      }),
+    );
     setRowsState(newRows);
 
     setDelColBtnVisible(false);
@@ -146,23 +147,23 @@ const Squares = ({initialWidth, initialHeight, cellSize}) => {
   };
 
   return (
-    <div className={squares} style={{ padding: cellSizing + INDENT || DEFAULT_PADDING}}>
+    <div className={squares} style={{ padding: cellSizing + INDENT || DEFAULT_PADDING }}>
       <Buttons
         cellSize={cellSizing}
         onMouseOut={onMouseOut}
         onMouseOver={onButtonOver}
         onClick={{
-          addCol: addCol,
-          addRow: addRow,
-          delRow: delRow,
-          delCol: delCol,
+          addCol,
+          addRow,
+          delRow,
+          delCol,
         }}
         position={[delColBtnPos, delRowBtnPos]}
         visibility={[delColBtnVisible, delRowBtnVisible]}
         squaresState={[colsState, rowsState]}
       />
 
-      <SquaresField rowsState={rowsState}/>
+      <SquaresField rowsState={rowsState} />
     </div>
   );
 };
@@ -171,6 +172,6 @@ Squares.propTypes = {
   initialWidth: PropTypes.number,
   initialHeight: PropTypes.number,
   cellSize: PropTypes.number,
-}
+};
 
 export default Squares;
