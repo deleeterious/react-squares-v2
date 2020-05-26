@@ -1,5 +1,6 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 // styles
@@ -109,6 +110,7 @@ const Squares = ({ initialWidth, initialHeight, cellSize }) => {
     );
     setRowsState(newRows);
   };
+
   const addRow = () => {
     const newRows = [...rowsState];
     newRows.push({
@@ -117,6 +119,7 @@ const Squares = ({ initialWidth, initialHeight, cellSize }) => {
     });
     setRowsState(newRows);
   };
+
   const delCol = () => {
     const newCols = [...colsState];
 
@@ -163,7 +166,7 @@ const Squares = ({ initialWidth, initialHeight, cellSize }) => {
         squaresState={[colsState, rowsState]}
       />
 
-      <SquaresField rowsState={rowsState} />
+      <SquaresField rowsState={useMemo(() => rowsState, [rowsState])} />
     </div>
   );
 };
